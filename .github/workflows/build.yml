@@ -22,6 +22,16 @@ jobs:
         working-directory: scripts
         run: npm install
 
+      - name: Create output directory
+        run: mkdir -p app/src/main/assets/scripts
+
+      - name: Debug frida-compile
+        working-directory: scripts
+        run: |
+          npx frida-compile src/global.js \
+            -o ../app/src/main/assets/scripts/global.js \
+            -S -B iife -T none 2>&1
+
       - name: Build all scripts
         working-directory: scripts
         run: npm run build:all
